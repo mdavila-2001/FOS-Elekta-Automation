@@ -23,7 +23,7 @@ pipeline {
             }
         } */
     }
-/* 
+
     post {
         always {
             // Acciones que se ejecutarán siempre, independientemente del resultado
@@ -37,5 +37,5 @@ pipeline {
             // Acciones que se ejecutarán si el pipeline falla
             echo 'Alguna prueba falló. Revisa los logs para más detalles.'
         }
-    } */
+    }
 }
