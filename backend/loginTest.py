@@ -14,7 +14,7 @@ def login_exitoso():
         response.raise_for_status()  # Lanza una excepción si el código de estado no es 2xx
         datos = response.json()
         assert "message" in datos, "La response no contiene la clave 'message'"
-        assert datos["message"] == "Login successfull", f"Mensaje inesperado: {datos['message']}"
+        assert datos["message"] == "Login successful", f"Mensaje inesperado: {datos['message']}"
         print("login_exitoso: ¡Prueba exitosa!")
     except Exception as e:
         print(f"login_exitoso: Prueba fallida - {e}")
