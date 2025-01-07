@@ -5,14 +5,14 @@ pipeline {
 
         stage('Instalar Dependencias') {
             steps {
-                sh 'pip install requests pytest'
+                bat 'pip install requests pytest'
             }
         }
 
         stage('Ejecutar Pruebas') {
             steps {
                 // Ejecuta las pruebas automatizadas
-                sh 'python main.py'
+                bat 'python main.py'
             }
         }
 
