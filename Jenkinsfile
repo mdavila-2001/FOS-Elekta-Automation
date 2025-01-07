@@ -2,16 +2,9 @@ pipeline {
     agent any // Define el entorno de ejecución (puede ser "any", "docker", etc.)
 
     stages {
-        stage('Checkout') {
-            steps {
-                // Clona el repositorio de GitHub
-                git branch: 'main', url: 'https://github.com/mdavila-2001/FOS-Elekta-Automation'
-            }
-        }
 
         stage('Instalar Dependencias') {
             steps {
-                // Instala las dependencias necesarias (si tienes un requirements.txt)
                 sh 'pip install requests pytest'
             }
         }
@@ -30,7 +23,7 @@ pipeline {
             }
         } */
     }
-
+/* 
     post {
         always {
             // Acciones que se ejecutarán siempre, independientemente del resultado
@@ -44,5 +37,5 @@ pipeline {
             // Acciones que se ejecutarán si el pipeline falla
             echo 'Alguna prueba falló. Revisa los logs para más detalles.'
         }
-    }
+    } */
 }
