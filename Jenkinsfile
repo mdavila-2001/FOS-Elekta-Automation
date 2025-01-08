@@ -20,7 +20,8 @@ pipeline {
             steps {
                 // Aquí puedes agregar pasos para generar reportes de pruebas (opcional)
                 echo 'Generando reportes de pruebas...'
-                bat 'pytest main.py --html=report.html'
+                bat 'pytest backend/loginTest.py --html=report.html'
+                bat 'pytest backend/rolesTest.py --html=report.html'
             }
         }
     }
