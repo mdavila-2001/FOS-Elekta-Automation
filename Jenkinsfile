@@ -20,7 +20,7 @@ pipeline {
             steps {
                 // Aquí puedes agregar pasos para generar reportes de pruebas (opcional)
                 echo 'Generando reportes de pruebas...'
-                bat 'python pytest main.py --html=report.html'
+                bat 'pytest main.py --html=report.html'
             }
         }
     }
