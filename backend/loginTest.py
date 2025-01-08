@@ -1,53 +1,39 @@
 import requests
 
-# URL base del backend
+# Definir constantes
 URL_BASE = "https://apielektadev.fos.com.bo/api"
-
-# Credenciales de prueba
-CREDENCIALES_VALIDAS = {"email": "admin@fos.com.bo", "password": "admin"}
-DOMINIO_INCORRECTO = {"email": "admin@fost.com.bo", "password": "12345678"}
+CREDENCIALES_VALIDAS = {"email": "admin@fos.com.bo", "password": "12345678"}
+DOMINIO_INCORRECTO = {"email": "admin@fost.com.bo", "password": "87654321"}
 CREDENCIALES_INVALIDAS = {"email": "user@fos.com.bo", "password": "admins"}
 
-def login_exitoso():
-    try:
-        response = requests.post(f"{URL_BASE}/adm-login", json=CREDENCIALES_VALIDAS)
-        response.raise_for_status()  # Lanza una excepción si el código de estado no es 2xx
-        datos = response.json()
-        assert "message" in datos, "La response no contiene la clave 'message'"
-        assert datos["message"] == "Login successful", f"Mensaje inesperado: {datos['message']}"
-        print("login_exitoso: ¡Prueba exitosa!")
-    except Exception as e:
-        print(f"login_exitoso: Prueba fallida - {e}")
+# Prueba: Login exitoso
+def test_login_exitoso():
+    response = requests.post(f"{URL_BASE}/adm-login", json=CREDENCIALES_VALIDAS)
+    assert response.status_code == 200
+    datos = response.json()
+    assert "message" in datos
+    assert datos["message"] == "Login successful"
 
-def login_fallido():
-    try:
-        response = requests.post(f"{URL_BASE}/adm-login", json=CREDENCIALES_INVALIDAS)
-        response.raise_for_status()
-        datos = response.json()
-        assert "message" in datos, "La respuesta no contiene la clave 'message'"
-        assert datos["message"] == "Acceso incorrecto", f"Mensaje inesperado: {datos['message']}"
-        print("login_fallido: ¡Prueba exitosa!")
-    except Exception as e:
-        print(f"login_fallido: Prueba fallida - {e}")
+# Prueba: Login fallido con credenciales incorrectas
+def test_login_fallido():
+    response = requests.post(f"{URL_BASE}/adm-login", json=CREDENCIALES_INVALIDAS)
+    assert response.status_code == 200
+    datos = response.json()
+    assert "message" in datos
+    assert datos["message"] == "Acceso incorrecto"
 
-def login_correo_invalido():
-    try:
-        response = requests.post(f"{URL_BASE}/adm-login", json=DOMINIO_INCORRECTO)
-        response.raise_for_status()
-        datos = response.json()
-        assert "message" in datos, "La respuesta no contiene la clave 'message'"
-        assert datos["message"] == "Validation Error", f"Mensaje inesperado: {datos['message']}"
-        print("login_correo_invalido: ¡Prueba exitosa!")
-    except Exception as e:
-        print(f"login_correo_invalido: Prueba fallida - {e}")
+# Prueba: Login con correo inválido
+def test_login_correo_invalido():
+    response = requests.post(f"{URL_BASE}/adm-login", json=DOMINIO_INCORRECTO)
+    assert response.status_code == 200
+    datos = response.json()
+    assert "message" in datos
+    assert datos["message"] == "Validation Error"
 
-def probar_campos_faltantes():
-    try:
-        response = requests.post(f"{URL_BASE}/adm-login", json={})
-        response.raise_for_status()
-        datos = response.json()
-        assert "message" in datos, "La respuesta no contiene la clave 'message'"
-        assert datos["message"] == "Validation Error", f"Mensaje inesperado: {datos['message']}"
-        print("probar_campos_faltantes: ¡Prueba exitosa!")
-    except Exception as e:
-        print(f"probar_campos_faltantes: Prueba fallida - {e}")
+# Prueba: Campos faltantes en el login
+def test_probar_campos_faltantes():
+    response = requests.post(f"{URL_BASE}/adm-login", json={})
+    assert response.status_code == 200
+    datos = response.json()
+    assert "message" in datos
+    assert datos["message"] == "Validation Error"

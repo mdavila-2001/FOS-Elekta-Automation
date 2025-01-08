@@ -16,26 +16,24 @@ pipeline {
             }
         }
 
-        /* stage('Generar Reportes') {
+        stage('Generar Reportes') {
             steps {
                 // Aquí puedes agregar pasos para generar reportes de pruebas (opcional)
                 echo 'Generando reportes de pruebas...'
+                bat 'python pytest main.py --html=report.html'
             }
-        } */
+        }
     }
 
     post {
         always {
-            // Acciones que se ejecutarán siempre, independientemente del resultado
             echo 'Pipeline finalizado.'
         }
         success {
-            // Acciones que se ejecutarán si el pipeline es exitoso
-            echo '¡Todas las pruebas pasaron exitosamente!'
+            echo '¡Todas las pruebas pasaron exitosamente, felicidades! Revisa el archivo report.html en tu carpeta de trabajo para más detalles.'
         }
         failure {
-            // Acciones que se ejecutarán si el pipeline falla
-            echo 'Alguna prueba falló. Revisa los logs para más detalles.'
+            echo 'Alguna prueba falló. Revisa los logs para más detalles. Y para el resultado de las pruebas, revisa el archivo report.html en tu carpeta de trabajo.'
         }
     }
 }
