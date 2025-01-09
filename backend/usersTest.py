@@ -85,7 +85,7 @@ def test_crear_usuario_erroneo():
         response.raise_for_status()
         datos = response.json()
         #assert 'data' in datos, "La respuesta no contiene el ID del usuario creado"
-        assert datos['message'] == "Registro creado con éxito", "El usuario falló al crearse"
+        assert datos['message'] == "El correo debe tener el dominio @fos.com.bo", "El usuario falló al crearse"
         print(f"Usuario creado con ID: {datos['data']}")
         return datos['data']
     except requests.exceptions.HTTPError as e:
@@ -106,7 +106,7 @@ def test_llamar_usuario(crear_usuario):
         pytest.fail(f"llamar_usuario: Prueba fallida - {e}")
 
 #Prueba para editar a un usuario
-def editar_create(crear_usuario):
+def test_editar_usuario(crear_usuario):
     try:
         token = obtenerToken()
         headers = {"Authorization": f"Bearer {token}"}

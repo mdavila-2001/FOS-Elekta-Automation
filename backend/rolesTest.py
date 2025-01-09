@@ -6,6 +6,7 @@ URL_BASE = "https://apielektadev.fos.com.bo/api"
 
 #Datos necesarios
 LISTADO = {"fullType": "L"}
+PERMISOS = {"fullType": "EXTRA"}
 
 def obtenerToken():
     response = requests.post(f"{URL_BASE}/adm-login", json={"email": "admin@fos.com.bo", "password": "12345678"})
@@ -15,6 +16,18 @@ def obtenerToken():
 
 # Prueba para listar roles
 def test_listado_roles():
+    try:
+        token = obtenerToken()
+        headers = {"Authorization": f"Bearer {token}"}
+        response = requests.get(f"{URL_BASE}/roles", headers=headers)
+        response.raise_for_status()
+        datos = response.json()
+        assert "message" in datos, "La response no contiene la clave 'message'"
+    except requests.exceptions.HTTPError as e:
+        pytest.fail(f"listado_roles: Prueba fallida - {e}")
+
+# Prueba para listar permisos
+def test_listado_permisos():
     try:
         token = obtenerToken()
         headers = {"Authorization": f"Bearer {token}"}
