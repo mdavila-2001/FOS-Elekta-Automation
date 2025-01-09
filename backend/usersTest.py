@@ -10,19 +10,41 @@ URL_BASE = "https://apielektadev.fos.com.bo/api"
 #Datos necesarios
 LISTADO = {"fullType": "L"}
 USUARIO_A_CREAR = {
+    "ci": str(fake.unique.random_number(digits=8)),
     "name": fake.first_name(),
-    "middle_name": "",
     "last_name": fake.last_name(),
-    "mother_last_name": "",
-    "phone": fake.numerify("########"),
-    "email": f"{fake.user_name()}@fos.com.bo",
+    "middle_name": fake.first_name(),
+    "mother_last_name": fake.last_name(),
+    "email": f"{fake.unique.user_name()}@fos.com.bo",
     "password": fake.password(length=10),
-    "role_id": 28
+    "phone": fake.random_element(elements=("6", "7"))+str(fake.random_number(digits=6)),
+    "address": fake.address(),
+    "birthdate": fake.date_of_birth(minimum_age=18, maximum_age=65).strftime("%Y-%m-%d"),
+    "gender": fake.random_element(elements=("M", "F")),
+    "emergency_contact": fake.name(),
+    "emergency_phone": fake.random_element(elements=("6", "7"))+str(fake.random_number(digits=8)),
+    "role_id": 2
 }
-COSAS_A_EDITAR = {"middle_name": "TestEditor"}
+USUARIO_ERROR = {
+    "ci": str(fake.unique.random_number(digits=8)),
+    "name": fake.first_name(),
+    "last_name": fake.last_name(),
+    "middle_name": fake.first_name(),
+    "mother_last_name": fake.last_name(),
+    "email": f"{fake.email()}",
+    "password": fake.password(length=10),
+    "phone": fake.random_element(elements=("6", "7"))+str(fake.random_number(digits=6)),
+    "address": fake.address(),
+    "birthdate": fake.date_of_birth(minimum_age=18, maximum_age=65).strftime("%Y-%m-%d"),
+    "gender": fake.random_element(elements=("M", "F")),
+    "emergency_contact": fake.name(),
+    "emergency_phone": fake.random_element(elements=("6", "7"))+str(fake.random_number(digits=8)),
+    "role_id": 2
+}
+COSAS_A_EDITAR = {"status": "W"}
 
 def obtenerToken():
-    response = requests.post(f"{URL_BASE}/adm-login", json={"email": "admin@fos.com.bo", "password": "87654321"})
+    response = requests.post(f"{URL_BASE}/adm-login", json={"email": "admin@fos.com.bo", "password": "12345678"})
     response.raise_for_status()
     datos = response.json()
     return datos['data']['token']
@@ -46,6 +68,20 @@ def crear_usuario():
         token = obtenerToken()
         headers = {"Authorization": f"Bearer {token}"}
         response = requests.post(f"{URL_BASE}/users", json=USUARIO_A_CREAR, headers=headers)
+        response.raise_for_status()
+        datos = response.json()
+        #assert 'data' in datos, "La respuesta no contiene el ID del usuario creado"
+        assert datos['message'] == "Registro creado con éxito", "El usuario falló al crearse"
+        print(f"Usuario creado con ID: {datos['data']}")
+        return datos['data']
+    except requests.exceptions.HTTPError as e:
+        pytest.fail(f"crear_usuario: Prueba fallida - {e}")
+
+def test_crear_usuario_erroneo():
+    try:
+        token = obtenerToken()
+        headers = {"Authorization": f"Bearer {token}"}
+        response = requests.post(f"{URL_BASE}/users", json=USUARIO_ERROR, headers=headers)
         response.raise_for_status()
         datos = response.json()
         #assert 'data' in datos, "La respuesta no contiene el ID del usuario creado"

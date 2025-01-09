@@ -8,12 +8,25 @@ URL_BASE = "https://apielektadev.fos.com.bo/api"
 LISTADO = {"fullType": "L"}
 
 def obtenerToken():
-    response = requests.post(f"{URL_BASE}/adm-login", json={"email": "admin@fos.com.bo", "password": "87654321"})
+    response = requests.post(f"{URL_BASE}/adm-login", json={"email": "admin@fos.com.bo", "password": "12345678"})
     response.raise_for_status()
     datos = response.json()
     return datos['data']['token']
 
+# Prueba para listar roles
+def test_listado_roles():
+    try:
+        token = obtenerToken()
+        headers = {"Authorization": f"Bearer {token}"}
+        response = requests.get(f"{URL_BASE}/roles", headers=headers)
+        response.raise_for_status()
+        datos = response.json()
+        assert "message" in datos, "La response no contiene la clave 'message'"
+    except requests.exceptions.HTTPError as e:
+        pytest.fail(f"listado_roles: Prueba fallida - {e}")
+
 # Prueba para crear un rol
+@pytest.fixture(scope="module")
 def crear_rol():
     try:
         token = obtenerToken()
@@ -28,26 +41,25 @@ def crear_rol():
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"crear_rol: Prueba fallida - {e}")
 
-# Prueba para listar roles
-def test_listado_roles():
+# Prueba para listar un rol en específico
+def test_llamar_rol(crear_rol):
     try:
         token = obtenerToken()
         headers = {"Authorization": f"Bearer {token}"}
-        response = requests.get(f"{URL_BASE}/roles", headers=headers)
+        response = requests.get(f"{URL_BASE}/roles/{crear_rol}", headers=headers)
         response.raise_for_status()
         datos = response.json()
         assert "message" in datos, "La response no contiene la clave 'message'"
     except requests.exceptions.HTTPError as e:
-        pytest.fail(f"listado_roles: Prueba fallida - {e}")
+        pytest.fail(f"llamar_roles: Prueba fallida - {e}")
 
 # Prueba para editar un rol
-def test_editar_rol():
+def test_editar_rol(crear_rol):
     try:
         token = obtenerToken()
-        rol_id = crear_rol()
         headers = {"Authorization": f"Bearer {token}"}
         datos_edicion = {"description": "Prueba de Edicion"}
-        response = requests.put(f"{URL_BASE}/roles/{rol_id}", json=datos_edicion, headers=headers)
+        response = requests.put(f"{URL_BASE}/roles/{crear_rol}", json=datos_edicion, headers=headers)
         response.raise_for_status()
         datos = response.json()
         assert "Debug_Querys" in datos, "La response no contiene la clave'Debug_Querys'"
@@ -55,12 +67,11 @@ def test_editar_rol():
         pytest.fail(f"editar_rol: Prueba fallida - {e}")
 
 # Prueba para eliminar un rol
-def test_eliminar_rol():
+def test_eliminar_rol(crear_rol):
     try:
         token = obtenerToken()
-        rol_id = crear_rol()
         headers = {"Authorization": f"Bearer {token}"}
-        response = requests.delete(f"{URL_BASE}/roles/{rol_id}", headers=headers)
+        response = requests.delete(f"{URL_BASE}/roles/{crear_rol}", headers=headers)
         response.raise_for_status()
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"eliminar_rol: Prueba fallida - {e}")
