@@ -8,7 +8,7 @@ URL_BASE = "https://apielektadev.fos.com.bo/api"
 LISTADO = {"fullType": "L"}
 
 def obtenerToken():
-    response = requests.post(f"{URL_BASE}/adm-login", json={"email": "admin@fos.com.bo", "password": "12345678"})
+    response = requests.post(f"{URL_BASE}/adm-login", json={"email": "admin@fos.com.bo", "password": "87654321"})
     response.raise_for_status()
     datos = response.json()
     return datos['data']['token']

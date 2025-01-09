@@ -22,7 +22,7 @@ USUARIO_A_CREAR = {
 COSAS_A_EDITAR = {"middle_name": "TestEditor"}
 
 def obtenerToken():
-    response = requests.post(f"{URL_BASE}/adm-login", json={"email": "admin@fos.com.bo", "password": "12345678"})
+    response = requests.post(f"{URL_BASE}/adm-login", json={"email": "admin@fos.com.bo", "password": "87654321"})
     response.raise_for_status()
     datos = response.json()
     return datos['data']['token']
