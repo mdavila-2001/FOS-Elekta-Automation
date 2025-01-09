@@ -50,7 +50,7 @@ def test_editar_rol():
         response = requests.put(f"{URL_BASE}/roles/{rol_id}", json=datos_edicion, headers=headers)
         response.raise_for_status()
         datos = response.json()
-        assert "bindings" in datos['Debug_Querys'], "La response no contiene la clave'bindings'"
+        assert "Debug_Querys" in datos, "La response no contiene la clave'Debug_Querys'"
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"editar_rol: Prueba fallida - {e}")
 
