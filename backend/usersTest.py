@@ -86,7 +86,6 @@ def test_crear_usuario_erroneo():
         datos = response.json()
         #assert 'data' in datos, "La respuesta no contiene el ID del usuario creado"
         assert datos['message'] == "El correo debe tener el dominio @fos.com.bo", "El usuario falló al crearse"
-        print(f"Usuario creado con ID: {datos['data']}")
         return datos['data']
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"crear_usuario: Prueba fallida - {e}")
