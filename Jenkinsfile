@@ -22,6 +22,7 @@ pipeline {
                 echo 'Generando reportes de pruebas...'
                 bat 'pytest backend/loginTest.py --html=report.html'
                 bat 'pytest backend/rolesTest.py --html=report.html'
+                bat 'pytest backend/usersTest.py --html=report.html'
             }
         }
     }
