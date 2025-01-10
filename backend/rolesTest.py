@@ -1,3 +1,4 @@
+import json
 import pytest
 import requests
 
@@ -62,7 +63,9 @@ def test_llamar_rol(crear_rol):
         response = requests.get(f"{URL_BASE}/roles/{crear_rol}", headers=headers)
         response.raise_for_status()
         datos = response.json()
+        info = datos['data']
         assert "message" in datos, "La response no contiene la clave 'message'"
+        print(json.dumps(info, indent=4))
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"llamar_roles: Prueba fallida - {e}")
 

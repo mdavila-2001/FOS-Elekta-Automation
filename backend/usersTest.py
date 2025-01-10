@@ -1,8 +1,9 @@
+import json
 import pytest
 import requests
 from faker import Faker
 
-fake = Faker()
+fake = Faker('es_MX')
 
 # Definir constantes
 URL_BASE = "https://apielektadev.fos.com.bo/api"
@@ -41,7 +42,7 @@ USUARIO_ERROR = {
     "emergency_phone": fake.random_element(elements=("6", "7"))+str(fake.random_number(digits=8)),
     "role_id": 2
 }
-COSAS_A_EDITAR = {"status": "W"}
+COSAS_A_EDITAR = {"middle_name": "EditTest"}
 
 def obtenerToken():
     response = requests.post(f"{URL_BASE}/adm-login", json={"email": "admin@fos.com.bo", "password": "12345678"})
@@ -57,7 +58,7 @@ def test_listar_usuarios():
         response = requests.get(f"{URL_BASE}/users", headers=headers, params=LISTADO)
         response.raise_for_status()
         datos = response.json()
-        assert "message" in datos, "La respuesta no contiene la clave'message'"
+        assert "message" in datos, "La respuesta no contiene la clave 'message'"
         print("El GET funciona correctamente")
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"listar_usuarios: Prueba fallida - {e}")
@@ -84,7 +85,6 @@ def test_crear_usuario_erroneo():
         response = requests.post(f"{URL_BASE}/users", json=USUARIO_ERROR, headers=headers)
         response.raise_for_status()
         datos = response.json()
-        #assert 'data' in datos, "La respuesta no contiene el ID del usuario creado"
         assert datos['message'] == "El correo debe tener el dominio @fos.com.bo", "El usuario falló al crearse"
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"crear_usuario: Prueba fallida - {e}")
@@ -98,8 +98,8 @@ def test_llamar_usuario(crear_usuario):
         response = requests.get(f"{URL_BASE}/users", headers=headers, params=params)
         response.raise_for_status()
         datos = response.json()
-        assert "message" in datos, "La respuesta no contiene la clave'message'"
-        print(f"{datos['data']}")
+        assert "data" in datos, "La respuesta no pudo traer los datos del usuario"
+        print(json.dumps(datos['data'], indent=4))
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"llamar_usuario: Prueba fallida - {e}")
 
@@ -114,6 +114,19 @@ def test_editar_usuario(crear_usuario):
         assert datos['message'] == "Registro actualizado con éxito", "No se logró actualizar el usuario"
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"editar_usuario: Prueba fallida - {e}")
+
+#Prueba para solicitar eliminación de un usuario
+def test_solicitar_eliminacion(crear_usuario):
+    try:
+        token = obtenerToken()
+        params = {"searchBy": crear_usuario}
+        headers = {"Authorization": f"Bearer {token}"}
+        response = requests.post(f"{URL_BASE}/request-deletion", headers=headers, params=params)
+        response.raise_for_status()
+        datos = response.json()
+        assert datos['message'] == "Solicitud de eliminación enviada", "El usuario falló al ser eliminado"
+    except requests.exceptions.HTTPError as e:
+        pytest.fail(f"solicitar_eliminacion: Prueba fallida - {e}")
 
 #Prueba para eliminar un usuario
 def test_eliminar_usuario(crear_usuario):

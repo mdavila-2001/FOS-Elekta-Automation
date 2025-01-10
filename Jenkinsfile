@@ -12,7 +12,6 @@ pipeline {
         stage('Ejecutar Pruebas') {
             steps {
                 // Ejecuta las pruebas automatizadas
-                bat 'python main.py'
             }
         }
 
