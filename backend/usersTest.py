@@ -71,7 +71,6 @@ def crear_usuario():
         response = requests.post(f"{URL_BASE}/users", json=USUARIO_A_CREAR, headers=headers)
         response.raise_for_status()
         datos = response.json()
-        #assert 'data' in datos, "La respuesta no contiene el ID del usuario creado"
         assert datos['message'] == "Registro creado con éxito", "El usuario falló al crearse"
         print(f"Usuario creado con ID: {datos['data']}")
         return datos['data']
@@ -93,7 +92,7 @@ def test_crear_usuario_erroneo():
 def test_llamar_usuario(crear_usuario):
     try:
         token = obtenerToken()
-        params = {"fullType": "L", "searchBy": crear_usuario}
+        params = {"fullType": "DET", "searchBy": crear_usuario}
         headers = {"Authorization": f"Bearer {token}"}
         response = requests.get(f"{URL_BASE}/users", headers=headers, params=params)
         response.raise_for_status()
