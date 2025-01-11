@@ -17,7 +17,7 @@ CLIENTE_JSON = {
     "contact_name": fake.name(),
     "contact_email": f"{fake.unique.user_name()}@fos.com.bo",
     "contact_phone": fake.random_element(elements=("6", "7"))+str(fake.random_number(digits=8)),
-    "contact_address": fake.address(),    
+    "contact_address": fake.address()
 }
 
 CLIENTE_JSON_ERROR = {
@@ -51,6 +51,7 @@ def test_client_get():
         pytest.fail(f"llamar_clientes: Prueba fallida - {e}")
 
 # Función para crear un nuevo cliente
+@pytest.fixture(scope="module")
 def client_post():
     try:
         token = obtenerToken()
