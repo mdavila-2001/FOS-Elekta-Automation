@@ -30,6 +30,10 @@ CLIENTE_JSON_ERROR = {
     "contact_address": fake.address(),    
 }
 
+CLIENTE_ACTUALIZAR = {
+    "contact_address": fake.address(),
+}
+
 def obtenerToken():
     response = requests.post(f"{URL_BASE}/adm-login", json={"email": "admin@fos.com.bo", "password": "12345678"})
     response.raise_for_status()
@@ -84,7 +88,7 @@ def test_client_get_id(client_post):
     try:
         token = obtenerToken()
         headers = {"Authorization": f"Bearer {token}"}
-        response = requests.get(f"{URL_CLIENTES}/{client_post}", headers=headers)
+        response = requests.get(f"{URL_CLIENTES}/{client_post}", headers=headers, json=CLIENTE_ACTUALIZAR)
         response.raise_for_status()
         datos = response.json()
         assert "message" in datos, "La respuesta no contiene la clave 'message'"
