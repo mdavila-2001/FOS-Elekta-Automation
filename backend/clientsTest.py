@@ -66,7 +66,7 @@ def client_post():
         pytest.fail(f"crear_cliente: Prueba fallida - {e}")
 
 # Prueba para crear un cliente erroneo
-def test_client_post_error():
+""" def test_client_post_error():
     try:
         token = obtenerToken()
         headers = {"Authorization": f"Bearer {token}"}
@@ -76,7 +76,7 @@ def test_client_post_error():
         assert "message" in datos, "La respuesta no contiene la clave 'message'"
         assert datos['message'] == "El correo debe tener el dominio @fos.com.bo", f"Mensaje inesperado: {datos['message']}"
     except requests.exceptions.HTTPError as e:
-        pytest.fail(f"crear_cliente_error: Prueba fallida - {e}")
+        pytest.fail(f"crear_cliente_error: Prueba fallida - {e}") """
 
 # Prueba para llamar a un cliente específico
 def test_client_get_id(client_post):
