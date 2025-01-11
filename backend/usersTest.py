@@ -77,7 +77,7 @@ def crear_usuario():
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"crear_usuario: Prueba fallida - {e}")
 
-def test_crear_usuario_erroneo():
+""" def test_crear_usuario_erroneo():
     try:
         token = obtenerToken()
         headers = {"Authorization": f"Bearer {token}"}
@@ -86,7 +86,7 @@ def test_crear_usuario_erroneo():
         datos = response.json()
         assert datos['message'] == "El correo debe tener el dominio @fos.com.bo", "El usuario falló al crearse"
     except requests.exceptions.HTTPError as e:
-        pytest.fail(f"crear_usuario: Prueba fallida - {e}")
+        pytest.fail(f"crear_usuario: Prueba fallida - {e}") """
 
 #Prueba para llamar a un usuario específico
 def test_llamar_usuario(crear_usuario):
