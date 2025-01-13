@@ -66,6 +66,7 @@ def test_listar_usuarios():
         datos = response.json()
         assert "message" in datos, "La respuesta no contiene la clave 'message'"
         print("El GET funciona correctamente")
+        print(json.dumps(datos['data'], indent=4))
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"listar_usuarios: Prueba fallida - {e}")
 
