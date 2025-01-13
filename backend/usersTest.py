@@ -111,6 +111,7 @@ def test_editar_usuario(crear_usuario):
         response.raise_for_status()
         datos = response.json()
         assert datos['message'] == "Registro actualizado con éxito", "No se logró actualizar el usuario"
+        print(json.dumps(datos['Debug_Query'], indent=4))
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"editar_usuario: Prueba fallida - {e}")
 
@@ -118,7 +119,7 @@ def test_editar_usuario(crear_usuario):
 def test_solicitar_eliminacion(crear_usuario):
     try:
         token = obtenerToken()
-        params = {"searchBy": crear_usuario}
+        params = {"searchBy": crear_usuario, "request_description": "Prueba para eliminar el usuario creado"}
         headers = {"Authorization": f"Bearer {token}"}
         response = requests.post(f"{URL_BASE}/request-deletion", headers=headers, params=params)
         response.raise_for_status()

@@ -107,6 +107,7 @@ def test_client_put(client_post):
         assert "message" in datos, "La respuesta no contiene la clave 'message'"
         assert datos['message'] == "Registro actualizado con éxito", f"Mensaje inesperado: {datos['message']}"
         print(f"Cliente actualizado")
+        print(json.dumps(datos, indent=4))
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"editar_cliente: Prueba fallida - {e}")
 
