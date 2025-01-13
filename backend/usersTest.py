@@ -119,9 +119,9 @@ def test_editar_usuario(crear_usuario):
 def test_solicitar_eliminacion(crear_usuario):
     try:
         token = obtenerToken()
-        params = {"searchBy": crear_usuario, "request_description": "Prueba para eliminar el usuario creado"}
+        params = {"searchBy": crear_usuario, "description": "Prueba para eliminar el usuario creado"}
         headers = {"Authorization": f"Bearer {token}"}
-        response = requests.post(f"{URL_BASE}/request-deletion", headers=headers, params=params)
+        response = requests.post(f"{URL_BASE}/adm-deletion", headers=headers, params=params)
         response.raise_for_status()
         datos = response.json()
         assert datos['message'] == "Solicitud de eliminación enviada", "El usuario falló al ser eliminado"
