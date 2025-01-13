@@ -50,6 +50,12 @@ def obtenerToken():
     datos = response.json()
     return datos['data']['token']
 
+def obtenerTokenEliminacion():
+    response = requests.post(f"{URL_BASE}/adm-login", json={"email": "support@fos.com.bo", "password": "12345678"})
+    response.raise_for_status()
+    datos = response.json()
+    return datos['data']['token']
+
 #Prueba para listar a los usuarios
 def test_listar_usuarios():
     try:
@@ -131,7 +137,7 @@ def test_solicitar_eliminacion(crear_usuario):
 #Prueba para eliminar un usuario
 def test_eliminar_usuario(crear_usuario):
     try:
-        token = obtenerToken()
+        token = obtenerTokenEliminacion()
         headers = {"Authorization": f"Bearer {token}"}
         response = requests.delete(f"{URL_BASE}/users/{crear_usuario}", headers=headers)
         response.raise_for_status()
