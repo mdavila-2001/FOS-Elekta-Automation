@@ -118,7 +118,6 @@ def test_editar_usuario(crear_usuario):
         response.raise_for_status()
         datos = response.json()
         assert datos['message'] == "Registro actualizado con éxito", "No se logró actualizar el usuario"
-        print(json.dumps(datos['Debug_Query'], indent=4))
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"editar_usuario: Prueba fallida - {e}")
 
