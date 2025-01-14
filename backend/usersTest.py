@@ -80,6 +80,7 @@ def crear_usuario():
         datos = response.json()
         assert datos['message'] == "Registro creado con éxito", "El usuario falló al crearse"
         print(f"Usuario creado con ID: {datos['data']}")
+        print(json.dumps(datos['Debug_Querys'][-1][-1], indent=4))
         return datos['data']
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"crear_usuario: Prueba fallida - {e}")
@@ -118,7 +119,7 @@ def test_editar_usuario(crear_usuario):
         response.raise_for_status()
         datos = response.json()
         assert datos['message'] == "Registro actualizado con éxito", "No se logró actualizar el usuario"
-        print(json.dumps(datos['Debug_Querys'], indent=4))
+        print(json.dumps(datos['Debug_Querys'][-1][-1], indent=4))
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"editar_usuario: Prueba fallida - {e}")
 
