@@ -20,16 +20,6 @@ CLIENTE_JSON = {
     "contact_address": fake.address()
 }
 
-""" CLIENTE_JSON_ERROR = {
-    "country_id": 1,
-    "name": fake.user_name(),
-    "ci": str(fake.unique.random_number(digits=8)),
-    "contact_name": fake.name(),
-    "contact_email": fake.email(),
-    "contact_phone": fake.random_element(elements=("6", "7"))+str(fake.random_number(digits=8)),
-    "contact_address": fake.address(),    
-}
- """
 CLIENTE_ACTUALIZAR = {
     "contact_address": fake.address(),
 }
