@@ -70,7 +70,7 @@ def test_actualizar_typecand(crear_typecand):
 def test_eliminar_typecand(crear_typecand):
     try:
         token = obtenerToken()
-        response = requests.delete(f"{URL_TIPO_CAND}/{crear_typecand}", headers={"Authorization": f"Bearer {token}"})
+        response = requests.delete(f"{URL_TIPO_CAND}/{crear_typecand}", headers={"Authorization": f"Bearer {token}"}, json={"client_id": 1})
         response.raise_for_status()
         datos = response.json()
         assert response.status_code == 200
