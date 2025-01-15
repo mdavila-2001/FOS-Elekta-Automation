@@ -50,7 +50,7 @@ def test_client_get():
         response.raise_for_status()
         datos = response.json()
         assert "message" in datos, "La respuesta no contiene la clave 'message'"
-        print(f"{datos['data']}")
+        print(json.dumps(datos['data'], indent=4))
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"llamar_clientes: Prueba fallida - {e}")
 
