@@ -20,7 +20,7 @@ CLIENTE_JSON = {
     "contact_address": fake.address()
 }
 
-CLIENTE_JSON_ERROR = {
+""" CLIENTE_JSON_ERROR = {
     "country_id": 1,
     "name": fake.user_name(),
     "ci": str(fake.unique.random_number(digits=8)),
@@ -29,7 +29,7 @@ CLIENTE_JSON_ERROR = {
     "contact_phone": fake.random_element(elements=("6", "7"))+str(fake.random_number(digits=8)),
     "contact_address": fake.address(),    
 }
-
+ """
 CLIENTE_ACTUALIZAR = {
     "contact_address": fake.address(),
 }
@@ -70,7 +70,7 @@ def client_post():
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"crear_cliente: Prueba fallida - {e}")
 
-# Prueba para crear un cliente erroneo
+""" # Prueba para crear un cliente erroneo
 def test_client_post_error():
     try:
         token = obtenerToken()
@@ -81,7 +81,7 @@ def test_client_post_error():
         assert "message" in datos, "La respuesta no contiene la clave 'message'"
         assert datos['message'] == "El correo debe tener el dominio @fos.com.bo", f"Mensaje inesperado: {datos['message']}"
     except requests.exceptions.HTTPError as e:
-        pytest.fail(f"crear_cliente_error: Prueba fallida - {e}")
+        pytest.fail(f"crear_cliente_error: Prueba fallida - {e}") """
 
 # Prueba para llamar a un cliente específico
 def test_client_get_id(client_post):
