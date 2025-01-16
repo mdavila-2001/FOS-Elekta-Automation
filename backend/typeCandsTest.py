@@ -1,5 +1,3 @@
-import json
-import random
 import pytest
 import requests
 from faker import Faker
