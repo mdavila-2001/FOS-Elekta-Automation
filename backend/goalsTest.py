@@ -7,7 +7,7 @@ fake = Faker('es_MX')
 
 # Definir constantes
 URL_BASE = "https://apielektadev.fos.com.bo/api"
-URL_GOAL = URL_BASE + "/educations"
+URL_GOAL = URL_BASE + "/goals"
 
 #Obtener el token para las funciones
 def obtenerToken():
