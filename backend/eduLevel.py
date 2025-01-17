@@ -53,7 +53,10 @@ def post_education():
         headers = {"Authorization": f"Bearer {token}"}
         response = requests.post(URL_EDU_LEVEL, json=educacion, headers=headers)
         response.raise_for_status()
-        return response.json()['data']
+        datos = response.json()
+        assert response.status_code == 200
+        print(f"Nivel creado con el ID: {datos['data']}")
+        return datos['data']
     except requests.exceptions.HTTPError as http_err:
         print(f"HTTP error occurred: {http_err}")
     except Exception as err:
@@ -72,13 +75,13 @@ def test_update_education(post_education):
     except Exception as err:
         print(f"Other error occurred: {err}")
 
-# def test_delete_education(post_education):
-#     try:
-#         token = obtenerToken()
-#         headers = {"Authorization": f"Bearer {token}"}
-#         response = requests.delete(f"{URL_EDU_LEVEL}/{post_education['id']}", headers=headers, params={"client_id": 1})
-#         response.raise_for_status()
-#         assert response.status_code == 200
-#         assert response.json()['message'] == "Registro eliminado con éxito"
-#     except requests.exceptions.HTTPError as http_err:
-#         print(f"HTTP error occurred: {http_err}")
+def test_delete_education(post_education):
+    try:
+        token = obtenerToken()
+        headers = {"Authorization": f"Bearer {token}"}
+        response = requests.delete(f"{URL_EDU_LEVEL}/{post_education['id']}", headers=headers, params={"client_id": 1})
+        response.raise_for_status()
+        assert response.status_code == 200
+        assert response.json()['message'] == "Registro eliminado con éxito"
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")
