@@ -33,8 +33,8 @@ def test_get_goals():
     try:
         token = obtenerToken()
         params = {"client_id": 1}
-        headers = {"Authorization": f"Bearer {token}", params=params}
-        response = requests.get(URL_GOAL, headers=headers)
+        headers = {"Authorization": f"Bearer {token}"}
+        response = requests.get(URL_GOAL, headers=headers, params=params)
         response.raise_for_status()
         datos = response.json()
         assert response.status_code == 200
