@@ -79,7 +79,7 @@ def test_delete_education(post_education):
     try:
         token = obtenerToken()
         headers = {"Authorization": f"Bearer {token}"}
-        response = requests.delete(f"{URL_EDU_LEVEL}/{post_education['id']}", headers=headers, params={"client_id": 1})
+        response = requests.delete(f"{URL_EDU_LEVEL}/{post_education}", headers=headers, params={"client_id": 1})
         response.raise_for_status()
         assert response.status_code == 200
         assert response.json()['message'] == "Registro eliminado con éxito"
