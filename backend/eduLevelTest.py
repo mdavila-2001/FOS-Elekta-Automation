@@ -62,6 +62,21 @@ def post_education():
     except Exception as err:
         print(f"Other error occurred: {err}")
 
+def test_get_education_by_id(post_education):
+    try:
+        token = obtenerToken()
+        headers = {"Authorization": f"Bearer {token}"}
+        response = requests.get(f"{URL_EDU_LEVEL}/{post_education}", headers=headers)
+        response.raise_for_status()
+        datos = response.json()
+        assert response.status_code == 200
+        print(f"Datos del nivel:")
+        print(json.dumps({datos['data']}, indent=2))
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")
+    except Exception as err:
+        print(f"Other error occurred: {err}")
+
 def test_update_education(post_education):
     try:
         token = obtenerToken()
