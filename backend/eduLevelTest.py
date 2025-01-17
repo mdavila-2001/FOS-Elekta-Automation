@@ -66,7 +66,7 @@ def test_update_education(post_education):
     try:
         token = obtenerToken()
         headers = {"Authorization": f"Bearer {token}"}
-        response = requests.put(f"{URL_EDU_LEVEL}/{post_education['id']}", json=educacion_edit, headers=headers)
+        response = requests.put(f"{URL_EDU_LEVEL}/{post_education}", json=educacion_edit, headers=headers)
         response.raise_for_status()
         assert response.status_code == 200
         assert response.json()['message'] == "Registro actualizado con éxito"
