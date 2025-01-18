@@ -86,6 +86,20 @@ def test_actualizar_candidato(crear_candidato):
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"actualizar_candidato: Error de HTTP - {e}")
 
+def test_llamar_candidato(crear_candidato):
+    try:
+        token = obtenerToken()
+        headers = {"Authorization": f"Bearer {token}"}
+        params = {"fullType": "L","client_id": 1}
+        response = requests.get(f"{URL_CANDIDATOS}/{crear_candidato}", headers=headers, params=params)
+        response.raise_for_status()
+        datos = response.json()
+        assert response.status_code == 200
+        assert datos['data']
+        print(json.dumps(datos['data'], indent=4))
+    except requests.exceptions.HTTPError as e:
+        pytest.fail(f"llamar_candidato: Prueba fallida - {e}")
+
 def test_eliminar_candidato(crear_candidato):
     try:
         token = obtenerToken()
