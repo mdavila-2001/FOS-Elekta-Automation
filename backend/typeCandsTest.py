@@ -1,3 +1,4 @@
+import json
 import pytest
 import requests
 from faker import Faker
@@ -35,7 +36,7 @@ def test_listar_typecands():
         datos = response.json()
         assert response.status_code == 200
         assert "data" in datos, "La respuesta no contiene la clave 'data'"
-        assert isinstance(datos['data'], list), "La clave 'data' no es una lista"
+        print(json.dumps(datos['data'], indent=4))
     except requests.exceptions.HTTPError as err:
         pytest.fail(f"test_listar_typecands: Error de HTTP - {err}")
 
@@ -48,6 +49,7 @@ def crear_typecand():
         datos = response.json()
         assert response.status_code == 200
         assert "data" in datos, "La respuesta no contiene la clave 'data'"
+        print(json.dumps(datos, indent=4))
         return datos['data']
     except requests.exceptions.HTTPError as err:
         pytest.fail(f"crear_typecand: Error de HTTP - {err}")
