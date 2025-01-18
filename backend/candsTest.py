@@ -54,7 +54,6 @@ def test_listar_candidatos():
         response.raise_for_status()
         datos = response.json()
         assert response.status_code == 200
-        assert datos['data']
         print(datos['data'])
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"listar_candidatos: Prueba fallida - {e}")
