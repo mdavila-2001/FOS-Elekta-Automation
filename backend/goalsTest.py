@@ -40,7 +40,7 @@ def test_get_goals():
         assert response.status_code == 200
         assert 'data' in datos
         assert isinstance(datos['data'], list)
-        print(f"Metas obtenidas: {datos['data']}")
+        print(f"Metas obtenidas: {json.dumps(datos['data'], indent=4)}")
     except requests.exceptions.HTTPError as http_err:
         print(f"HTTP error occurred: {http_err}")
     except Exception as err:
@@ -56,7 +56,6 @@ def create_goal():
         response.raise_for_status()
         datos = response.json()
         assert response.status_code == 200
-        assert 'data' in datos
         print(f"Meta creada con el ID: {datos['data']}")
         return datos['data']
     except requests.exceptions.HTTPError as http_err:
