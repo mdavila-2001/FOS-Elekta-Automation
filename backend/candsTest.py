@@ -68,7 +68,6 @@ def crear_candidato():
         response.raise_for_status()
         datos = response.json()
         print(f"El candidato fue creado con el ID: {datos['data']}")
-        print(json.dumps(datos, indent=4))
         return datos['data']
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"crear_candidato: Error de HTTP - {e}")
