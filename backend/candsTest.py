@@ -81,8 +81,7 @@ def test_actualizar_candidato(crear_candidato):
         response.raise_for_status()
         datos = response.json()
         assert response.status_code == 200
-        assert datos['data']
-        print(datos['data'])
+        assert datos['message'] == "Registro actualizado con éxito", f"El mensaje de respuesta es: {datos['message']}"
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"actualizar_candidato: Error de HTTP - {e}")
 
