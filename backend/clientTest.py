@@ -11,7 +11,7 @@ URL_CLIENTES = URL_BASE + "/clients"
 
 # Datos necesarios
 CLIENTE_JSON = {
-    "country_id": 1,
+    "country_id": "BO",
     "name": fake.user_name(),
     "ci": str(fake.unique.random_number(digits=8)),
     "contact_name": fake.name(),
