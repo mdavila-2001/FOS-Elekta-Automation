@@ -16,7 +16,7 @@ def test_login_exitoso():
         assert "message" in datos, "La response no contiene la clave 'message'"
         assert datos["message"] == "Login successful", f"Mensaje inesperado: {datos['message']}"
         print("login_exitoso: ¡Prueba exitosa!")
-        return datos['data']['token']
+        assert datos['data']['token']
     except Exception as e:
         print(f"login_exitoso: Prueba fallida - {e}")
 
