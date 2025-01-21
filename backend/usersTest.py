@@ -13,7 +13,7 @@ LISTADO = {"fullType": "L"}
 USUARIO_A_CREAR = {
     "ci": str(fake.unique.random_number(digits=8)),
     "name": fake.first_name(),
-    "middle_name": fake.first_name(),
+    "middle_name": "Faker",
     "last_name": fake.last_name(),
     "mother_last_name": fake.last_name(),
     "email": f"{fake.unique.user_name()}@fos.com.bo",
