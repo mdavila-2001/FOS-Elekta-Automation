@@ -24,7 +24,8 @@ USUARIO_A_CREAR = {
     "gender": fake.random_element(elements=("M", "F")),
     "emergency_contact": fake.name(),
     "emergency_phone": fake.random_element(elements=("6", "7"))+str(fake.random_number(digits=8)),
-    "role_id": 2
+    "area_id": 1,
+    "role_id": 1
 }
 USUARIO_ERROR = {
     "ci": str(fake.unique.random_number(digits=8)),
