@@ -30,6 +30,12 @@ def obtenerToken():
     datos = response.json()
     return datos['data']['token']
 
+def obtenerTokenEliminacion():
+    response = requests.post(f"{URL_BASE}/adm-login", json={"email": "support@fos.com.bo", "password": "12345678"})
+    response.raise_for_status()
+    datos = response.json()
+    return datos['data']['token']
+
 #Función para llamar a los clientes
 def test_client_get():
     try:
@@ -88,16 +94,34 @@ def test_client_put(client_post):
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"editar_cliente: Prueba fallida - {e}")
 
+# Prueba para solicitar la eliminación de un usuario
+def test_request_deletion(client_post):
+    try:
+        token = obtenerTokenEliminacion()
+        headers = {"Authorization": f"Bearer {token}"}
+        json = {
+            "searchBy": client_post,
+            "description": "Prueba para eliminar el cliente creado" 
+        }
+        response = requests.post(f"{URL_BASE}/client-deletion", headers=headers, json=json)
+        response.raise_for_status()
+        datos = response.json()
+        assert "message" in datos, "La respuesta no contiene la clave 'message'"
+        assert datos['message'] == "Solicitud de eliminación enviada", f"Mensaje inesperado: {datos['message']}"
+        print(f"Solicitud de eliminación enviada")
+    except requests.exceptions.HTTPError as e:
+        pytest.fail(f"solicitar_eliminacion: Prueba fallida - {e}")
+
 # Prueba para eliminar un cliente
 def test_client_delete(client_post):
     try:
-        token = obtenerToken()
+        token = obtenerTokenEliminacion()
         headers = {"Authorization": f"Bearer {token}"}
         response = requests.delete(f"{URL_CLIENTES}/{client_post}", headers=headers)
         response.raise_for_status()
         datos = response.json()
         assert "message" in datos, "La respuesta no contiene la clave 'message'"
-        assert datos['message'] == "Registro eliminado con éxito", f"Mensaje inesperado: {datos['message']}"
+        assert datos['message'] == "Cliente Desvinculado", f"Mensaje inesperado: {datos['message']}"
         print(f"Cliente eliminado")
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"eliminar_cliente: Prueba fallida - {e}")
