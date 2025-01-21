@@ -1,6 +1,9 @@
 import json
 import pytest
 import requests
+from faker import Faker
+
+fake = Faker('es_MX')
 
 # Definir constantes
 URL_BASE = "https://apielektadev.fos.com.bo/api"
@@ -13,7 +16,7 @@ AREA = {
 }
 
 AREA_EDITADA = {
-    "name": "Recursos Humanos"
+    "name": fake.job()
 }
 
 def obtenerToken():
