@@ -9,8 +9,8 @@ URL_LEAGUES = URL_BASE + "/leagues"
 # Datos necesarios
 liga = {
     "client_id": 1,
-    "name": "Liga Afiliado",
-    "description": "Afiliados"
+    "name": "Liga Prueba",
+    "description": "Pruebas"
 }
 
 liga_editada = {
