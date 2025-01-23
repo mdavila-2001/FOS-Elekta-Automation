@@ -54,6 +54,7 @@ def crear_liga():
         return datos['data']
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"crearLiga: Prueba fallida - {e}")
+        print(f"crearLiga: Prueba fallida - {e}")
 
 def test_editar_liga(crear_liga):
     try:
