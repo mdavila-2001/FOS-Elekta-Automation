@@ -51,7 +51,7 @@ def crear_liga():
         datos = response.json()
         assert response.status_code == 200
         print(f"Liga creada con el ID: {datos['data']}")
-        return datos['data']
+        return datos['data']['id']
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"crearLiga: Prueba fallida - {e}")
         print(f"crearLiga: Prueba fallida - {e}")
