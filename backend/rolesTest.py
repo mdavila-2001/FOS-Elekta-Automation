@@ -89,5 +89,9 @@ def test_eliminar_rol(crear_rol):
         headers = {"Authorization": f"Bearer {token}"}
         response = requests.delete(f"{URL_BASE}/roles/{crear_rol}", headers=headers)
         response.raise_for_status()
+        datos = response.json()
+        assert response.status_code == 200
+        assert datos["message"] == "Registro eliminado con éxito", f"El mensaje de respuesta es: {datos['message']}"
+        print(f"Rol eliminado con éxito")
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"eliminar_rol: Prueba fallida - {e}")
