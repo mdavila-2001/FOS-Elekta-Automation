@@ -1,31 +1,24 @@
-import json
-import random
-import requests
+import pandas as pd
 from faker import Faker
 
 fake = Faker('es_MX')
 
-# Datos a enviar
-candidato = {
-    "client_id": 1,
-    "name": fake.first_name_male(),
-    "middle_name": fake.first_name_male(),
-    "last_name": fake.last_name_male(),
-    "mother_last_name": fake.last_name_male(),
-    "title": fake.sentence(),
-    "typecand_id": random.randint(1, 5),
-    "born": "Santa Cruz de la Sierra",
-    "profession": fake.job_male(),
-    "biography" : "Nacido en 1980",
-    "experience": fake.sentence(),
-    "plan_goverment": "qwertyuiop",
-    "prov_id": random.randint(1, 9),
-    "position": 0,
-    "twitter": "",
-    "linkedin": "",
-    "instagram": "",
-    "facebook": "",
-    "ideology": 0
+# Definir el número de filas
+num_filas = 19
+
+# Generar datos aleatorios
+datos = {
+    "Nombre": [fake.first_name_male() for _ in range(num_filas)],
+    "Segundo nombre": [fake.first_name_male() for _ in range(num_filas)],
+    "Apellido paterno": [fake.last_name_male() for _ in range(num_filas)],
+    "Apellido materno": [fake.last_name_male() for _ in range(num_filas)],
+    "Apodo": [fake.user_name() for _ in range(num_filas)],
+    "Profesión": [fake.job_male() for _ in range(num_filas)],
+    "Título": [fake.sentence() for _ in range(num_filas)]
 }
 
-print(json.dumps(candidato, indent=4))
+# Crear un DataFrame con los datos
+df = pd.DataFrame(datos)
+
+# Exportar el DataFrame a un archivo de Excel
+df.to_excel('datos_aleatorios.xlsx', index=False)
