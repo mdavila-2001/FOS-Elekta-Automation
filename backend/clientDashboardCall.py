@@ -4,7 +4,7 @@ import requests
 
 # Definir constantes
 URL_BASE = "https://apielektadev.fos.com.bo/api"
-URL_CLIENT_DASHBOARD = URL_BASE + "/client_dashboard"
+URL_CLIENT_DASHBOARD = URL_BASE + "/client-dashboard"
 
 # Datos necesarios
 
