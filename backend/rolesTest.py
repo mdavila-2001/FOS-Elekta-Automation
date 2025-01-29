@@ -45,7 +45,7 @@ def crear_rol():
     try:
         token = obtenerToken()
         headers = {"Authorization": f"Bearer {token}"}
-        datos_rol = {"abilities": "home:R|profile:C|roles:R|", "description": "Rol de prueba", "level": 2, "name": "rpureba", "area_id": 2}
+        datos_rol = {"abilities": "home:R|profile:C|roles:R|", "description": "Rol de prueba", "name": "rpureba", "area_id": 2}
         response = requests.post(f"{URL_BASE}/roles", json=datos_rol, headers=headers)
         response.raise_for_status()
         datos = response.json()
