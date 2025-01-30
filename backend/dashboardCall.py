@@ -23,12 +23,12 @@ def test_dashboard_clientes_promedio():
         datos = response.json()
         assert 'data' in datos
         print(f"Afiliados Totales: {json.dumps(datos['data']['card1']['aff'])}")
-        print(f"Afiliados nuevos este mes: {json.dumps(datos['data']['card1']['newAff'])}")
+        print(f"Afiliados nuevos hoy: {json.dumps(datos['data']['card1']['newAff'])}")
         print(f"Validados totales: {json.dumps(datos['data']['card2']['verified'])}")
-        print(f"Validados nuevos este mes: {json.dumps(datos['data']['card2']['newVerified'])}")
+        print(f"Validados nuevos hoy: {json.dumps(datos['data']['card2']['newVerified'])}")
         print(f"Clientes registrados: {json.dumps(datos['data']['card3']['client'])}")
-        print(f"Clientes nuevos este mes: {json.dumps(datos['data']['card3']['newClient'])}")
+        print(f"Clientes nuevos hoy: {json.dumps(datos['data']['card3']['newClient'])}")
         print(f"Administradores registrados: {json.dumps(datos['data']['card4']['user'])}")
-        print(f"Administradores nuevos este mes: {json.dumps(datos['data']['card4']['newUser'])}")
+        print(f"Administradores hoy: {json.dumps(datos['data']['card4']['newUser'])}")
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"test_dashboard_clientes_promedio: Prueba fallida - {e}")
