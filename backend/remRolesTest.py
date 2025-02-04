@@ -79,7 +79,7 @@ def test_editar_rol(crear_rol):
         response = requests.put(f"{URL_BASE}/roles-remote/{crear_rol}", json=datos_edicion, headers=headers)
         response.raise_for_status()
         datos = response.json()
-        assert "Debug_Querys" in datos, "La response no contiene la clave'Debug_Querys'"
+        assert datos["message"] == "Registro actualizado con éxito", f"El mensaje de respuesta es: {datos['message']}"
     except requests.exceptions.HTTPError as e:
         pytest.fail(f"editar_rol: Prueba fallida - {e}")
 
