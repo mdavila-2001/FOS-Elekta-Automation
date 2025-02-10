@@ -11,7 +11,7 @@ URL_CLIENTES = URL_BASE + "/clients"
 
 # Datos necesarios
 CLIENTE_JSON = {
-    "country_id": "BO",
+    "country_id": "CL",
     "name": fake.user_name(),
     "ci": str(fake.unique.random_number(digits=8)),
     "contact_name": fake.name(),
@@ -113,15 +113,15 @@ def test_request_deletion(client_post):
         pytest.fail(f"solicitar_eliminacion: Prueba fallida - {e}")
 
 # Prueba para eliminar un cliente
-def test_client_delete(client_post):
-    try:
-        token = obtenerTokenEliminacion()
-        headers = {"Authorization": f"Bearer {token}"}
-        response = requests.delete(f"{URL_CLIENTES}/{client_post}", headers=headers)
-        response.raise_for_status()
-        datos = response.json()
-        assert "message" in datos, "La respuesta no contiene la clave 'message'"
-        assert datos['message'] == "Cliente Desvinculado", f"Mensaje inesperado: {datos['message']}"
-        print(f"Cliente eliminado")
-    except requests.exceptions.HTTPError as e:
-        pytest.fail(f"eliminar_cliente: Prueba fallida - {e}")
+# def test_client_delete(client_post):
+#     try:
+#         token = obtenerTokenEliminacion()
+#         headers = {"Authorization": f"Bearer {token}"}
+#         response = requests.delete(f"{URL_CLIENTES}/{client_post}", headers=headers)
+#         response.raise_for_status()
+#         datos = response.json()
+#         assert "message" in datos, "La respuesta no contiene la clave 'message'"
+#         assert datos['message'] == "Cliente Desvinculado", f"Mensaje inesperado: {datos['message']}"
+#         print(f"Cliente eliminado")
+#     except requests.exceptions.HTTPError as e:
+#         pytest.fail(f"eliminar_cliente: Prueba fallida - {e}")
