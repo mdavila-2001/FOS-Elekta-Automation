@@ -118,14 +118,14 @@ def test_solicitar_eliminacion(crear_usuario):
         pytest.fail(f"solicitar_eliminacion: Prueba fallida - {e}")
 
 #Prueba para eliminar un usuario
-# def test_eliminar_usuario(crear_usuario):
-#     try:
-#         token = obtenerToken()
-#         headers = {"Authorization": f"Bearer {token}"}
-#         params = {"client_id": 3}
-#         response = requests.delete(f"{URL_BASE}/users-remote/{crear_usuario}", headers=headers, params=params)
-#         response.raise_for_status()
-#         datos = response.json()
-#         assert datos['message'] == "Administrador Desvinculado", "El usuario falló al ser eliminado"
-#     except requests.exceptions.HTTPError as e:
-#         pytest.fail(f"eliminar_usuario: Prueba fallida - {e}")
+def test_eliminar_usuario(crear_usuario):
+    try:
+        token = obtenerToken()
+        headers = {"Authorization": f"Bearer {token}"}
+        params = {"client_id": 3}
+        response = requests.delete(f"{URL_BASE}/users-remote/{crear_usuario}", headers=headers, params=params)
+        response.raise_for_status()
+        datos = response.json()
+        assert datos['message'] == "Administrador Desvinculado", "El usuario falló al ser eliminado"
+    except requests.exceptions.HTTPError as e:
+        pytest.fail(f"eliminar_usuario: Prueba fallida - {e}")
