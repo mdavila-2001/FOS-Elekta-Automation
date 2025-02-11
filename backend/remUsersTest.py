@@ -108,7 +108,7 @@ def test_editar_usuario(crear_usuario):
 def test_solicitar_eliminacion(crear_usuario):
     try:
         token = obtenerToken()
-        params = {"searchBy": crear_usuario, "description": "Prueba para eliminar el usuario creado", "client_id": 3}
+        params = {"searchBy": crear_usuario, "description": "Prueba para eliminar el administrador creado", "client_id": 3}
         headers = {"Authorization": f"Bearer {token}"}
         response = requests.post(f"{URL_BASE}/users-remote-deletion", headers=headers, params=params)
         response.raise_for_status()
